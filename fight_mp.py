@@ -11,8 +11,11 @@
 import argparse
 import os
 import time
+import sys
 from interface import Environment
 from common.agent_process import AgentCtrl
+
+sys.path.append("/home/boris/MaCA/environment")
 
 
 if __name__ == "__main__":
@@ -56,6 +59,8 @@ if __name__ == "__main__":
         step_delay = 0
     else:
         step_delay = 1 / args.fps
+
+    # load agent ?
 
     # environment initiation
     if args.log:

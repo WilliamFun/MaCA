@@ -15,7 +15,7 @@ import numpy as np
 from agent.fix_rule_no_att.agent import Agent
 from interface import Environment
 from train.simple import dqn
-MAP_PATH = 'maps/1000_1000_fighter10v10.map'
+MAP_PATH = './maps/1000_1000_fighter10v10.map'
 
 RENDER = True
 MAX_EPOCH = 1000
@@ -32,6 +32,9 @@ ACTION_NUM = COURSE_NUM * ATTACK_IND_NUM
 LEARN_INTERVAL = 100
 
 if __name__ == "__main__":
+    os.chdir('../../')
+    print(os.getcwd())
+
     # create blue agent
     blue_agent = Agent()
     # get agent obs type
@@ -83,8 +86,9 @@ if __name__ == "__main__":
             env.step(red_detector_action, red_fighter_action, blue_detector_action, blue_fighter_action)
             # get reward
             red_detector_reward, red_fighter_reward, red_game_reward, blue_detector_reward, blue_fighter_reward, blue_game_reward = env.get_reward()
-            detector_reward = red_detector_reward + red_game_reward
-            fighter_reward = red_fighter_reward + red_game_reward
+            # detector_reward = red_detector_reward + red_game_reward
+            #fighter_reward = red_fighter_reward + red_game_reward
+            fighter_reward = [i+red_game_reward for i in red_fighter_reward]
             # save repaly
             red_obs_dict, blue_obs_dict = env.get_obs()
             for y in range(red_fighter_num):
